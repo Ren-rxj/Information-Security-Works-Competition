@@ -1,0 +1,152 @@
+<!--
+    AUTHOR:Ren Xujie
+    DATE:2018-5-15
+    PROJECT:HTML of SQL injection with method Parameterized Query
+-->
+
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/login.css" rel="stylesheet">
+    <link href="../../fontawesome/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet">
+
+    <title>登录</title>
+</head>
+
+<body>
+<a href='../../index.html' style='position:absolute;top:20px;left:20px;text-decoration:none;color:white;'><i class='fas fa-home' style='font-size:20px;'></i>&#160Home</a>
+<div class='container-fluid' style='height:100%;'>
+    <h1 style="text-align:center">使用参数化查询的sql注入</h1>
+    <div class='row' style='height:100%;'>
+        <div class='col-md-3 col-xs-3 col-sm-3'></div>
+        <div class='col-md-6'>
+            <div class='row' style='height:100%'>
+                <div class='col-md-2 col-xs-2 col-sm-2'></div>
+                <div class='col-md-8 col-xs-8 col-sm-8' style='height:100%'>
+                    <div style='position:relative;left:15%;top:20%;width:70%;height:60%;'>
+                        <form>
+                            <div class='form-group has-feedback'>
+                                <label class="control-label" for='stu_num'>用户名</label>
+                                <div class='input-group'>
+                                    <div class="input-group-addon">U</div>
+                                    <input type='text' class='form-control' id='stu_num' placeholder='username' >
+                                </div>
+                                <div class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></div>
+                                <div class="alert alert-danger alert-dismissable hidden" id='login_check_n'>
+                                    <a href="#" class="close">&times;</a>
+                                    <em>请输入用户名</em>
+                                </div>
+                            </div>
+                            <div class='form-group has-feedback'>
+                                <label class="control-label" for='password'>密码</label>
+                                <div class='input-group'>
+                                    <div class='input-group-addon'>P</div>
+                                    <input type='password' class='form-control' id='password' placeholder='password' >
+                                </div>
+                                <div class="glyphicon glyphicon-eye-close form-control-feedback" aria-hidden="true"></div>
+                                <div class="alert alert-danger alert-dismissable hidden" id='login_check_p'>
+                                    <a href="#" class="close">&times;</a>
+                                    <em>请输入密码</em>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" id='signin'>登录</button>
+                        </form>
+
+
+
+                        <button onclick="display()" onmouseout="disappear()" style="background-color:transparent;border:none;position: absolute;left: 50%;top: 70%;" >
+                            <img src='../picture/note.png' width="30px" height="30px" />
+                        </button>
+                        <div id="box" style="position: absolute;left: 60%;top: 70%;">
+                            <font style="font-weight: 900" size="5" color="red">第七关：参数化查询</font>
+                            <p align="left">
+                                <font face="楷体" size="3" color="black">
+                                    &#160&#160&#160&#160本关采用了SQL参数化查询的方式防止注入，这是目前较为有效的防止注入的方法。<br/><br/>
+                                    &#160&#160&#160&#160请使用下列账号密码登录：username=wujiaming  password=wujiaming<br/>
+                                </font>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <div class='col-md-2 col-xs-2 col-sm-2'></div>
+            </div>
+        </div>
+        <div style='height:15%;'></div>
+    </div>
+    <div class='col-md-3 col-xs-3 col-sm-3'></div>
+</div>
+</div>
+
+
+
+<script src="../js/jquery.js"></script>
+<script src="../css/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+    function display(e){
+        document.getElementById("box").style.display=(document.getElementById("box").style.display=="block"?"none":"block");
+    }
+
+    function disappear(){
+        document.getElementById("box").style.display="none";
+    }
+
+    var signin=document.getElementById('signin');
+    if(window.addEventListener){
+        signin.addEventListener('click',check,false);
+    }
+    else{
+        signin.attachEvent('onclick',check);
+    }
+
+    var closes=$('.close');
+
+    closes.on('click',hideClose);
+
+
+
+    function hideClose(e){
+
+        e=window.event || e;
+        var obj=e.target?e.target:e.srcElement;
+        var $obj_j = $(obj);
+
+        var $p=$($obj_j.parent()[0]);
+        $p.addClass('hidden');
+    }
+
+
+    function check(e){
+        e= window.event || e;
+        var username=document.getElementById('stu_num');
+        var password=document.getElementById('password');
+        if(username.value==''){
+            var no_num=$('#login_check_n');
+            no_num.removeClass('hidden');
+        }
+        else if(password.value==''){
+            var no_pass=$('#login_check_p');
+            no_pass.removeClass('hidden');
+        }
+        else{
+            e.preventDefault();
+            if(window.event){
+                window.event.returnValue=false;
+            }
+            window.location.href='../php/result_para.php?'+'username='+username.value+'&password='+password.value;
+        }
+    }
+
+</script>
+
+</body>
+
+</html>
