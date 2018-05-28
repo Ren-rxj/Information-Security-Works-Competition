@@ -1,3 +1,10 @@
+<!--
+    AUTHOR:Wu Jiaming
+    DATE:2018-4-24
+    PROJECT:registering an account for SQL injection manoeuvre
+-->
+
+
 <html>
     <head>
         <meta charset="UTF-8">

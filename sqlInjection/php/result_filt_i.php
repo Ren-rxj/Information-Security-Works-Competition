@@ -1,3 +1,10 @@
+<!--
+    AUTHOR:Ren Xujie
+    DATE:2018-5-15
+    PROJECT:SQL injection with method filtering case-insensitive keywords
+-->
+
+
 <html>
 <head>
     <title>Information</title>
